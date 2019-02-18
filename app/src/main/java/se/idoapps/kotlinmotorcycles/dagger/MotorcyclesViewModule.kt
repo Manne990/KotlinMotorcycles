@@ -11,5 +11,5 @@ import javax.inject.Singleton
 class MotorcyclesViewModule {
     @Provides
     @Singleton
-    fun provideFindStopsViewModel(webservice: WebServiceInterface): MotorcyclesViewModelInterface = MotorcyclesViewModel(webservice)
+    fun provideMotorcyclesViewModel(webservice: WebServiceInterface): MotorcyclesViewModelInterface = MotorcyclesViewModel(webservice)
 }

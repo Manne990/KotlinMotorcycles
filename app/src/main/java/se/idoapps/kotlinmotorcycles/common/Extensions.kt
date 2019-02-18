@@ -10,8 +10,3 @@ inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, obje
 
 val Activity.app: MotorcyclesApp
     get() = application as MotorcyclesApp
-
-fun <T> LiveData<T>.observeOnce(onChangeHandler: (T) -> Unit) {
-    val observer = OneTimeObserver(handler = onChangeHandler)
-    observe(observer, observer)
-}
