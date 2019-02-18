@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import se.idoapps.kotlinmotorcycles.api.MotorcycleApi
-import se.idoapps.kotlinmotorcycles.api.MotorcycleApiFactory
+import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import javax.inject.Inject
 
-class MotorcyclesViewModel @Inject constructor() : ViewModel() {
+class MotorcyclesViewModel @Inject constructor(private val webservice: WebServiceInterface) : ViewModel(), MotorcyclesViewModelInterface {
     // Private Members
     private val _motorcycles: MutableLiveData<List<Motorcycle>> by lazy {
         MutableLiveData<List<Motorcycle>>().also {
@@ -20,23 +19,17 @@ class MotorcyclesViewModel @Inject constructor() : ViewModel() {
     }
 
     // Public Functions
-    fun getMotorcycles(): LiveData<List<Motorcycle>> {
+    override fun getMotorcycles(): LiveData<List<Motorcycle>> {
         return _motorcycles
     }
 
     // Private Functions
     private fun loadMotorcycles() {
-        val service = MotorcycleApiFactory.makeMotorcycleService()
-
         GlobalScope.launch {
-            val request = service.getMotorcyclesAsync()
             try {
-                val response = request.await()
+                val response =  webservice.getMotorcycles()
 
-                response?.isSuccessful.let {
-                    println(response?.body())
-                    _motorcycles.postValue(response?.body())
-                }
+                _motorcycles.postValue(response.data)
 
             } catch (e: HttpException) {
                 println(e.code())
