@@ -1,4 +1,4 @@
-package se.idoapps.kotlinmotorcycles
+package se.idoapps.kotlinmotorcycles.unit.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert.*
