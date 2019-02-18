@@ -5,10 +5,12 @@ import com.google.gson.Gson
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import com.github.kittinunf.result.Result
 import retrofit2.HttpException
+import se.idoapps.kotlinmotorcycles.application.Configuration
 import se.idoapps.kotlinmotorcycles.common.fromJson
+import se.idoapps.kotlinmotorcycles.model.MotorcycleContainer
 import se.idoapps.kotlinmotorcycles.model.MotorcyclesContainer
 
-class WebService : WebServiceInterface {
+class  WebService : WebServiceInterface {
     override fun getMotorcycles(): MotorcyclesContainer {
         try {
             val endPoint = getMotorcyclesUrl()
@@ -37,9 +39,35 @@ class WebService : WebServiceInterface {
         }
     }
 
-    companion object {
-        private const val BASE_URL = "https://api.backendless.com/8497684E-2B7B-1E53-FF7C-3C2B0CE99700/282CDAE9-FE22-748C-FF61-DC3168DB0D00/"
+    override fun getMotorcycle(id: String): MotorcycleContainer {
+        try {
+            val endPoint = getMotorcyclesUrl() + "/" + id
 
-        private fun getMotorcyclesUrl() = "${BASE_URL}data/Motorcycles"
+            val (_, _, result) = endPoint
+                .httpGet()
+                .responseString()
+
+            return when(result)
+            {
+                is Result.Success -> {
+                    MotorcycleContainer(Gson().fromJson<Motorcycle>(result.value), true)
+                }
+
+                is Result.Failure -> {
+                    MotorcycleContainer(null, false)
+                }
+            }
+        } catch (e: HttpException) {
+            println(e.code())
+            println(e.message)
+            return MotorcycleContainer(null, false)
+        } catch (e: Throwable) {
+            println(e.message)
+            return MotorcycleContainer(null, false)
+        }
+    }
+
+    companion object {
+        private fun getMotorcyclesUrl() = "${Configuration.BASE_URL}data/Motorcycles"
     }
 }

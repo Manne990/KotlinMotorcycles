@@ -31,4 +31,26 @@ class WebServiceTests {
         assertNotNull(response)
         assert(response.success)
     }
+
+    @Test
+    fun completeCRUD() {
+        // ARRANGE
+
+        // ACT - Get All Motorcycles
+        val motorcyclesResponse =  webservice.getMotorcycles()
+
+        // ASSERT - Get All Motorcycles
+        assertNotNull(motorcyclesResponse)
+        assert(motorcyclesResponse.success)
+        assert(motorcyclesResponse.data.isNotEmpty())
+
+        // ACT - Get One Motorcycle
+        val firstMotorcycleId = motorcyclesResponse.data.first().objectId
+        val motorcycleResponse = webservice.getMotorcycle(firstMotorcycleId)
+
+        // ASSERT - Get One Motorcycle
+        assertNotNull(motorcycleResponse)
+        assert(motorcycleResponse.success)
+        assertEquals(firstMotorcycleId, motorcycleResponse.data?.objectId)
+    }
 }
