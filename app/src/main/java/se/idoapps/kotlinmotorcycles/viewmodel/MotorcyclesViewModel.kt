@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class MotorcyclesViewModel @Inject constructor(private val webservice: WebServiceInterface) : ViewModel(), MotorcyclesViewModelInterface {
     // Private Members
-    private val _motorcycles: MutableLiveData<List<Motorcycle>> by lazy {
+    val motorcycles: MutableLiveData<List<Motorcycle>> by lazy {
         MutableLiveData<List<Motorcycle>>().also {
             loadMotorcycles()
         }
@@ -20,7 +20,7 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
 
     // Public Functions
     override fun getMotorcycles(): LiveData<List<Motorcycle>> {
-        return _motorcycles
+        return motorcycles
     }
 
     // Private Functions
@@ -29,7 +29,7 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
             try {
                 val response =  webservice.getMotorcycles()
 
-                _motorcycles.postValue(response.data)
+                motorcycles.postValue(response.data)
 
             } catch (e: HttpException) {
                 println(e.code())
