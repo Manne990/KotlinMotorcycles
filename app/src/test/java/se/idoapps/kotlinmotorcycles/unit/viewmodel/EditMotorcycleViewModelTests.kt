@@ -11,38 +11,38 @@ import se.idoapps.kotlinmotorcycles.model.*
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import se.idoapps.kotlinmotorcycles.viewmodel.*
 
-class MotorcyclesViewModelTests {
-    private lateinit var viewModel: MotorcyclesViewModelInterface
+class EditMotorcycleViewModelTests {
+    private lateinit var viewModel: EditMotorcycleViewModelInterface
     private lateinit var webservice: WebServiceInterface
-    private lateinit var motorcyclesResult: MotorcyclesContainer
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
     @Before
     fun initTests() {
-        motorcyclesResult = MotorcyclesContainer(
-            listOf(
-                Motorcycle("1", "Yamaha", "R1", 2007),
-                Motorcycle("2", "Ducati", "916", 1995)
-            )
-            , true
-        )
+//        motorcyclesResult = MotorcyclesContainer(
+//            listOf(
+//                Motorcycle("1", "Yamaha", "R1", 2007),
+//                Motorcycle("2", "Ducati", "916", 1995)
+//            )
+//            , true
+//        )
 
         webservice = Mockito.mock(WebServiceInterface::class.java)
-        Mockito.`when`(webservice.getMotorcycles()).thenReturn(motorcyclesResult)
+//        Mockito.`when`(webservice.getMotorcycles()).thenReturn(motorcyclesResult)
 
-        viewModel = MotorcyclesViewModel(webservice)
+        viewModel = EditMotorcycleViewModel(webservice)
     }
 
     @Test
-    fun `When fetching motorcycles then two motorcycles shall be returned`() {
+    fun `When init with payload viewmodel should be updated`() {
         // ARRANGE
+        val payload = Motorcycle("1", "Yamaha", "R1", 2007)
 
         // ACT
-        viewModel.loadMotorcycles()
+        viewModel.initWithPayload(payload)
 
         // ASSERT
-        assertEquals(2, viewModel.motorcycles.value?.size)
+        assertEquals(payload.objectId, viewModel.motorcycle.value?.objectId)
     }
 }

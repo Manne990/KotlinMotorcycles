@@ -8,7 +8,8 @@ import javax.inject.Singleton
 @Component(modules = [
     AppModule::class,
     WebServiceModule::class,
-    MotorcyclesViewModule::class])
+    MotorcyclesViewModule::class,
+    EditMotorcycleViewModule::class])
 
 interface AppComponent {
     fun inject(target: MotorcyclesActivity)
