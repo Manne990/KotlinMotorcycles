@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="paddingNormal">8dp</dimen>
+    <dimen name="marginNormal">16dp</dimen>
+
+    <dimen name="spacingMicro">4dp</dimen>
+    <dimen name="spacingNormal">8dp</dimen>
+    <dimen name="spacingDouble">16dp</dimen>
+    <dimen name="spacingHuge">72dp</dimen>
+
+    <dimen name="elevationToolbar">4dp</dimen>
+
+    <integer name="transitionAnimDuration">300</integer>
 </resources>

@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "se.idoapps.kotlinmotorcycles"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -45,12 +49,16 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
-    implementation 'com.github.kittinunf.fuel:fuel-android:1.4.0'
+    implementation 'com.github.kittinunf.fuel:fuel:1.12.0'
+    implementation 'com.github.kittinunf.fuel:fuel-android:1.12.0'
+    implementation 'com.github.kittinunf.fuel:fuel-gson:1.12.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'android.arch.core:core-testing:1.1.1'
 
     testImplementation 'junit:junit:4.12'

@@ -17,16 +17,4 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
             motorcycles.postValue(response.data)
         }
     }
-
-    override fun addMotorcycle() {
-        //TODO: Start the add motorcycle process and update the collection after the process is done
-    }
-
-    override fun editMotorcycle(mc: Motorcycle) {
-        //TODO: Start the edit motorcycle process and update the collection after the process is done
-    }
-
-    override fun deleteMotorcycle(mc: Motorcycle) {
-        //TODO: Start the delete motorcycle process and update the collection after the process is done
-    }
 }
