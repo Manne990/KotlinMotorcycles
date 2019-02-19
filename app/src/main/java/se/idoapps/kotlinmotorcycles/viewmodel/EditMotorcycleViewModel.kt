@@ -1,12 +1,12 @@
 package se.idoapps.kotlinmotorcycles.viewmodel
 
-import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import javax.inject.Inject
 
-class EditMotorcycleViewModel @Inject constructor(private val webservice: WebServiceInterface) : BaseObservable(), EditMotorcycleViewModelInterface {
+class EditMotorcycleViewModel @Inject constructor(private val webservice: WebServiceInterface) : ViewModel(), EditMotorcycleViewModelInterface {
     // Public Properties
     override val data: MutableLiveData<Motorcycle> = MutableLiveData()
     override var motorcycle: Motorcycle = Motorcycle.empty()
