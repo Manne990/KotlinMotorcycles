@@ -43,6 +43,6 @@ class EditMotorcycleViewModelTests {
         viewModel.initWithPayload(payload)
 
         // ASSERT
-        assertEquals(payload.objectId, viewModel.motorcycle.value?.objectId)
+        assertEquals(payload.objectId, viewModel.motorcycle.objectId)
     }
 }
