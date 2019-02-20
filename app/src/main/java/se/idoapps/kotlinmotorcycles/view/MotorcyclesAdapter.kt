@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import se.idoapps.kotlinmotorcycles.R
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 
-class MotorcyclesAdapter(var items: List<Motorcycle>, var clickListener: View.OnClickListener) : RecyclerView.Adapter<MotorcyclesAdapter.MotorcycleViewHolder>() {
+class MotorcyclesAdapter(var clickListener: View.OnClickListener) : RecyclerView.Adapter<MotorcyclesAdapter.MotorcycleViewHolder>() {
+    // Private Members
+    private var _items: MutableList<Motorcycle> = arrayListOf()
+
     // Overrides
     override fun getItemCount(): Int {
-        return items.size
+        return _items.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MotorcycleViewHolder {
@@ -19,12 +22,22 @@ class MotorcyclesAdapter(var items: List<Motorcycle>, var clickListener: View.On
     }
 
     override fun onBindViewHolder(holder: MotorcycleViewHolder, position: Int) {
-        holder.setData(items[position])
+        holder.setData(_items[position])
     }
 
     // Public Functions
+    fun setData(items: List<Motorcycle>) {
+        _items = items.toMutableList()
+        notifyDataSetChanged()
+    }
+
     fun getItem(adapterPosition: Int): Motorcycle {
-        return items[adapterPosition]
+        return _items[adapterPosition]
+    }
+
+    fun removeItem(adapterPosition: Int) {
+        _items.removeAt(adapterPosition)
+        notifyItemRemoved(adapterPosition)
     }
 
     // View Holder

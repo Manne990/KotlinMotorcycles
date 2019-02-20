@@ -17,4 +17,11 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
             motorcycles.postValue(response.data.sortedWith(compareBy({it.brand}, {it.model}, {it.year})))
         }
     }
+
+    override fun deleteMotorcycle(motorcycle: Motorcycle) {
+        val response = webservice.deleteMotorcycle(motorcycle.objectId)
+        if (response.success) {
+            loadMotorcycles()
+        }
+    }
 }

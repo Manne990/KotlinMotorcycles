@@ -7,4 +7,5 @@ interface MotorcyclesViewModelInterface {
     val motorcycles: MutableLiveData<List<Motorcycle>>
 
     fun loadMotorcycles()
+    fun deleteMotorcycle(motorcycle: Motorcycle)
 }

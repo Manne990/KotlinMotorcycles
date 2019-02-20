@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.motorcycles_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -13,6 +14,8 @@ import kotlinx.coroutines.launch
 import se.idoapps.kotlinmotorcycles.R
 import se.idoapps.kotlinmotorcycles.common.*
 import se.idoapps.kotlinmotorcycles.common.view.BaseActivity
+import se.idoapps.kotlinmotorcycles.common.view.SwipeToDeleteHandler
+import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.viewmodel.MotorcyclesViewModelInterface
 import javax.inject.Inject
 
@@ -38,14 +41,28 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         // Controls
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        _adapter = MotorcyclesAdapter(this)
+        recyclerView.adapter = _adapter
+
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
+            val item = _adapter?.getItem(it.adapterPosition)
+
+            _adapter?.removeItem(it.adapterPosition)
+
+            item?.let {
+                deleteMotorcycle(it)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
         fab.setOnClickListener {
             startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE, true)
         }
 
         // Observe Motorcycles Collection
         viewModel.motorcycles.observe(this, Observer {
-            _adapter = MotorcyclesAdapter(it, this)
-            recyclerView.adapter = _adapter
+            _adapter?.setData(it)
         })
 
         // Load the motorcycles
@@ -76,6 +93,10 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     // Private Functions
     private fun loadMotorcycles() {
         GlobalScope.launch { viewModel.loadMotorcycles() }
+    }
+
+    private fun deleteMotorcycle(motorcycle: Motorcycle) {
+        GlobalScope.launch { viewModel.deleteMotorcycle(motorcycle) }
     }
 
     // Companion Objects

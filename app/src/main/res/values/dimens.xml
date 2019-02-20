@@ -9,5 +9,7 @@
 
     <dimen name="elevationToolbar">4dp</dimen>
 
+    <dimen name="ic_clear_margin">16dp</dimen>
+
     <integer name="transitionAnimDuration">300</integer>
 </resources>
