@@ -15,7 +15,7 @@
             android:padding="@dimen/marginNormal">
         <TextView
                 android:text="@string/brand"
-                style="@style/fieldLabelTextView" />
+                style="@style/fieldLabelTextViewStyle" />
         <EditText
                 android:id="@+id/brandEditText"
                 android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         <TextView
                 android:layout_marginTop="@dimen/spacingNormal"
                 android:text="@string/model"
-                style="@style/fieldLabelTextView" />
+                style="@style/fieldLabelTextViewStyle" />
         <EditText
                 android:id="@+id/modelEditText"
                 android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         <TextView
                 android:layout_marginTop="@dimen/spacingNormal"
                 android:text="@string/year"
-                style="@style/fieldLabelTextView" />
+                style="@style/fieldLabelTextViewStyle" />
         <EditText
                 android:id="@+id/yearEditText"
                 android:layout_width="match_parent"
