@@ -20,17 +20,7 @@ class EditMotorcycleViewModelTests {
 
     @Before
     fun initTests() {
-//        motorcyclesResult = MotorcyclesContainer(
-//            listOf(
-//                Motorcycle("1", "Yamaha", "R1", 2007),
-//                Motorcycle("2", "Ducati", "916", 1995)
-//            )
-//            , true
-//        )
-
         webservice = Mockito.mock(WebServiceInterface::class.java)
-//        Mockito.`when`(webservice.getMotorcycles()).thenReturn(motorcyclesResult)
-
         viewModel = EditMotorcycleViewModel(webservice)
     }
 

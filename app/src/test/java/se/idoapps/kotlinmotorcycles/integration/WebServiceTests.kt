@@ -6,6 +6,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.service.WebService
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 
@@ -28,29 +29,64 @@ class WebServiceTests {
         val response =  webservice.getMotorcycles()
 
         // ASSERT
-        assertNotNull(response)
         assert(response.success)
+        assert(response.data.isNotEmpty())
     }
 
     @Test
     fun completeCRUD() {
-        // ARRANGE
-
         // ACT - Get All Motorcycles
         val motorcyclesResponse =  webservice.getMotorcycles()
 
         // ASSERT - Get All Motorcycles
-        assertNotNull(motorcyclesResponse)
         assert(motorcyclesResponse.success)
         assert(motorcyclesResponse.data.isNotEmpty())
 
+        val numberOfMotorcyclesAtStart = motorcyclesResponse.data.size
+
+        // ACT - Create a motorcycle
+        val newMotorcycleResponse = webservice.saveMotorcycle(Motorcycle("", "Kawasaki", "Test Race", 2000))
+
+        // ASSERT - Create a motorcycle
+        assert(newMotorcycleResponse.success)
+        assert(newMotorcycleResponse.data?.objectId?.isNotBlank()!!)
+
+        val newMotorcycleId = newMotorcycleResponse.data?.objectId!!
+
+        // ACT - Get All Motorcycles After Create
+        val motorcyclesAfterCreateResponse =  webservice.getMotorcycles()
+
+        // ASSERT - Get All Motorcycles After Create
+        assert(motorcyclesAfterCreateResponse.success)
+        assert(motorcyclesAfterCreateResponse.data.isNotEmpty())
+        assertEquals(numberOfMotorcyclesAtStart + 1, motorcyclesAfterCreateResponse.data.size)
+
         // ACT - Get One Motorcycle
-        val firstMotorcycleId = motorcyclesResponse.data.first().objectId
-        val motorcycleResponse = webservice.getMotorcycle(firstMotorcycleId)
+        val motorcycleResponse = webservice.getMotorcycle(newMotorcycleId)
 
         // ASSERT - Get One Motorcycle
-        assertNotNull(motorcycleResponse)
         assert(motorcycleResponse.success)
-        assertEquals(firstMotorcycleId, motorcycleResponse.data?.objectId)
+        assertEquals(newMotorcycleId, motorcycleResponse.data?.objectId)
+
+        // ACT - Delete Motorcycle
+        val deleteResponse = webservice.deleteMotorcycle(newMotorcycleId)
+
+        // ASSERT - Delete Motorcycle
+        assert(deleteResponse.success)
+
+        // ACT - Get All Motorcycles After Delete
+        val motorcyclesAfterDeleteResponse =  webservice.getMotorcycles()
+
+        // ASSERT - Get All Motorcycles After Delete
+        assert(motorcyclesAfterDeleteResponse.success)
+        assert(motorcyclesAfterDeleteResponse.data.isNotEmpty())
+        assertEquals(numberOfMotorcyclesAtStart, motorcyclesAfterDeleteResponse.data.size)
+
+        // ACT - Get One Motorcycle After Delete -> Should Fail
+        val motorcycleAfterDeleteResponse = webservice.getMotorcycle(newMotorcycleId)
+
+        // ASSERT - Get One Motorcycle After Delete -> Should Fail
+        assert(!motorcycleAfterDeleteResponse.success)
+        assertNull(motorcycleAfterDeleteResponse.data)
     }
 }

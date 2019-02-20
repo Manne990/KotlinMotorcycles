@@ -11,6 +11,7 @@ import se.idoapps.kotlinmotorcycles.model.*
 import java.nio.charset.Charset
 
 class  WebService : WebServiceInterface {
+    // Public Functions
     override fun getMotorcycles(): MotorcyclesContainer {
         try {
             val endPoint = allMotorcyclesUrl()
@@ -67,7 +68,7 @@ class  WebService : WebServiceInterface {
         }
     }
 
-    override fun saveMotorcycle(motorcycle: Motorcycle): EmptyContainer {
+    override fun saveMotorcycle(motorcycle: Motorcycle): MotorcycleContainer {
         if (motorcycle.objectId.isEmpty()) {
             return createNewMotorcycle(motorcycle)
         }
@@ -75,7 +76,37 @@ class  WebService : WebServiceInterface {
         return updateMotorcycle(motorcycle)
     }
 
-    private fun createNewMotorcycle(motorcycle: Motorcycle): EmptyContainer {
+    override fun deleteMotorcycle(id: String): EmptyContainer {
+        try {
+            val endPoint = oneMotorcycleUrl(id)
+
+            val (_, _, result) = endPoint
+                .httpDelete()
+                .responseString()
+
+            return when(result)
+            {
+                is Result.Success -> {
+                    EmptyContainer(true)
+                }
+
+                is Result.Failure -> {
+                    EmptyContainer(false)
+                }
+            }
+        } catch (e: HttpException) {
+            println(e.code())
+            println(e.message)
+            return EmptyContainer(false)
+        } catch (e: Throwable) {
+            println(e.message)
+            return EmptyContainer(false)
+        }
+    }
+
+
+    // Private Functions
+    private fun createNewMotorcycle(motorcycle: Motorcycle): MotorcycleContainer {
         try {
             val endPoint = allMotorcyclesUrl()
 
@@ -88,24 +119,24 @@ class  WebService : WebServiceInterface {
             return when(result)
             {
                 is Result.Success -> {
-                    EmptyContainer(true)
+                    MotorcycleContainer(Gson().fromJson<Motorcycle>(result.value), true)
                 }
 
                 is Result.Failure -> {
-                    EmptyContainer(false)
+                    MotorcycleContainer(null, false)
                 }
             }
         } catch (e: HttpException) {
             println(e.code())
             println(e.message)
-            return EmptyContainer(false)
+            return MotorcycleContainer(null, false)
         } catch (e: Throwable) {
             println(e.message)
-            return EmptyContainer(false)
+            return MotorcycleContainer(null, false)
         }
     }
 
-    private fun updateMotorcycle(motorcycle: Motorcycle): EmptyContainer {
+    private fun updateMotorcycle(motorcycle: Motorcycle): MotorcycleContainer {
         try {
             val endPoint = oneMotorcycleUrl(motorcycle.objectId)
 
@@ -118,20 +149,20 @@ class  WebService : WebServiceInterface {
             return when(result)
             {
                 is Result.Success -> {
-                    EmptyContainer(true)
+                    MotorcycleContainer(motorcycle,true)
                 }
 
                 is Result.Failure -> {
-                    EmptyContainer(false)
+                    MotorcycleContainer(motorcycle,false)
                 }
             }
         } catch (e: HttpException) {
             println(e.code())
             println(e.message)
-            return EmptyContainer(false)
+            return MotorcycleContainer(motorcycle,false)
         } catch (e: Throwable) {
             println(e.message)
-            return EmptyContainer(false)
+            return MotorcycleContainer(motorcycle,false)
         }
     }
 
