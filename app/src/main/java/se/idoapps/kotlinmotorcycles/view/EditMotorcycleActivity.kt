@@ -36,12 +36,12 @@ class EditMotorcycleActivity : BaseActivity() {
         viewModel.data.observe(this, Observer {
             brandEditText.setText(it.brand)
             modelEditText.setText(it.model)
-            yearEditText.setText(it.year.toString())
+            yearEditText.setInt(it.year)
         })
 
         // Load the motorcycles
         val payload = intent.getSerializableExtra(PAYLOAD) as Motorcycle?
-        GlobalScope.launch { viewModel.initWithPayload(payload) }
+        initWithPayload(payload)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,25 +51,34 @@ class EditMotorcycleActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menuDone) {
-            viewModel.motorcycle.brand = brandEditText.text.toString()
-            viewModel.motorcycle.model = modelEditText.text.toString()
-            viewModel.motorcycle.year = yearEditText.text.toString().toIntOrNull() ?: 0
+            viewModel.motorcycle.brand = brandEditText.textAsString()
+            viewModel.motorcycle.model = modelEditText.textAsString()
+            viewModel.motorcycle.year = yearEditText.textAsInt()
 
-            GlobalScope.launch {
-                val result = GlobalScope.async { viewModel.saveMotorcycle() }
-
-                result.await()
-
-                withContext(Dispatchers.Main) {
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }
-            }
+            saveMotorcycleAndFinish()
 
             return true
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    // Private Functions
+    private fun initWithPayload(payload: Motorcycle?) {
+        GlobalScope.launch { viewModel.initWithPayload(payload) }
+    }
+
+    private fun saveMotorcycleAndFinish() {
+        GlobalScope.launch {
+            val result = GlobalScope.async { viewModel.saveMotorcycle() }
+
+            result.await()
+
+            withContext(Dispatchers.Main) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        }
     }
 
     // Companion Objects

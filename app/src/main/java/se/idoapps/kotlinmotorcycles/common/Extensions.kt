@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Editable
+import android.widget.EditText
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import se.idoapps.kotlinmotorcycles.application.MotorcyclesApp
@@ -13,6 +15,19 @@ import java.io.Serializable
 
 // JSON
 inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object: TypeToken<T>() {}.type)
+
+// EditText
+fun EditText.textAsString(): String {
+    return this.text.toString()
+}
+
+fun EditText.textAsInt(): Int {
+    return this.textAsString().toIntOrNull() ?: 0
+}
+
+fun EditText.setInt(value: Int) {
+    this.setText(value.toString())
+}
 
 // Application
 val Activity.app: MotorcyclesApp

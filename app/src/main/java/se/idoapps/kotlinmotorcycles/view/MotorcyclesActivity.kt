@@ -31,12 +31,12 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Init
-        setContentView(R.layout.motorcycles_activity)
-        setSupportActionBar(toolbar)
-
         // Init Dagger
         this.app.appComponent.inject(this)
+
+        // Init Activity
+        setContentView(R.layout.motorcycles_activity)
+        setSupportActionBar(toolbar)
 
         // Controls
         recyclerView.layoutManager = LinearLayoutManager(this)
