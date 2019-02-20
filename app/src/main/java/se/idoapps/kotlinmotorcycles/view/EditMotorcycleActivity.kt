@@ -2,7 +2,6 @@ package se.idoapps.kotlinmotorcycles.view
 
 import android.app.Activity
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
@@ -31,7 +30,6 @@ class EditMotorcycleActivity : BaseActivity() {
         // Init Activity
         setContentView(R.layout.edit_motorcycle_activity)
         setSupportActionBar(toolbar)
-        window.enterTransition = TransitionInflater.from(this).inflateTransition(R.transition.slide)
         enableBackButton(true)
 
         // Observe Motorcycles Collection

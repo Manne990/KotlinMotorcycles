@@ -15,7 +15,6 @@ import se.idoapps.kotlinmotorcycles.common.*
 import se.idoapps.kotlinmotorcycles.common.view.BaseActivity
 import se.idoapps.kotlinmotorcycles.viewmodel.MotorcyclesViewModelInterface
 import javax.inject.Inject
-import org.jetbrains.anko.*
 
 class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     // Dagger
@@ -40,7 +39,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         fab.setOnClickListener {
-            startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE)
+            startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE, true)
         }
 
         // Observe Motorcycles Collection
@@ -57,7 +56,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         val holder = view?.tag as MotorcyclesAdapter.MotorcycleViewHolder
         val item = _adapter?.getItem(holder.adapterPosition) ?: return
 
-        startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE, EditMotorcycleActivity.PAYLOAD to item)
+        startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE, true, EditMotorcycleActivity.PAYLOAD to item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

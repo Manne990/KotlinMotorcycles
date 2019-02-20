@@ -3,7 +3,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Window -->
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:windowContentTransitions">true</item>
+
+        <!-- Transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/fade</item>
+        <item name="android:windowExitTransition">@transition/fade</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
 
