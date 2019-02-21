@@ -7,7 +7,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
+import android.util.Patterns
 import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import se.idoapps.kotlinmotorcycles.application.MotorcyclesApp
@@ -25,9 +27,30 @@ fun EditText.textAsInt(): Int {
     return this.textAsString().toIntOrNull() ?: 0
 }
 
-fun EditText.setInt(value: Int) {
+fun EditText.setInt(value: Int, zeroIsBlank: Boolean = true) {
+    if (zeroIsBlank && value == 0) {
+        this.setText("")
+        return
+    }
     this.setText(value.toString())
 }
+
+fun EditText.validate(validator: (String) -> Boolean, message: String): Boolean {
+    this.doAfterTextChanged {
+        this.error = if (validator(it.toString())) null else message
+    }
+    this.error = if (validator(this.text.toString())) null else message
+
+    return this.error == null
+}
+
+// String
+fun String.toIntOrZero(): Int {
+    return this.toIntOrNull() ?: 0
+}
+
+// Validation
+fun String.isValidEmail(): Boolean = this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 // Application
 val Activity.app: MotorcyclesApp

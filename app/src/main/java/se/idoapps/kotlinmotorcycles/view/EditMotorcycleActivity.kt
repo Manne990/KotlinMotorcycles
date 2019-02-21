@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.edit_motorcycle_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -32,6 +33,11 @@ class EditMotorcycleActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         configureBackButton(backButtonEnabled = true, upButtonEnabled = true)
 
+        // Controls
+        brandEditText.hint = getString(R.string.stringLengthValidationError, 2)
+        modelEditText.hint = getString(R.string.stringLengthValidationError, 2)
+        yearEditText.hint = getString(R.string.rangeValidationError, 1901, 2099)
+
         // Observe Motorcycles Collection
         viewModel.data.observe(this, Observer {
             brandEditText.setText(it.brand)
@@ -51,6 +57,15 @@ class EditMotorcycleActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menuDone) {
+            val isValid =
+                brandEditText.validate({ s -> s.length >= 2 }, brandEditText.hint.toString()) &&
+                modelEditText.validate({ s -> s.length >= 2 }, modelEditText.hint.toString()) &&
+                yearEditText.validate({ s -> s.toIntOrZero() in 1901..2099 }, yearEditText.hint.toString())
+
+            if (!isValid) {
+                return true
+            }
+
             viewModel.motorcycle.brand = brandEditText.textAsString()
             viewModel.motorcycle.model = modelEditText.textAsString()
             viewModel.motorcycle.year = yearEditText.textAsInt()
