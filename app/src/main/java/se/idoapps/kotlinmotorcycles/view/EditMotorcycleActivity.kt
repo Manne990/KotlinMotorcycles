@@ -30,7 +30,7 @@ class EditMotorcycleActivity : BaseActivity() {
         // Init Activity
         setContentView(R.layout.edit_motorcycle_activity)
         setSupportActionBar(toolbar)
-        enableBackButton(true)
+        configureBackButton(backButtonEnabled = true, upButtonEnabled = true)
 
         // Observe Motorcycles Collection
         viewModel.data.observe(this, Observer {

@@ -37,6 +37,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         // Init Activity
         setContentView(R.layout.motorcycles_activity)
         setSupportActionBar(toolbar)
+        configureBackButton(backButtonEnabled = true, upButtonEnabled = false)
 
         // Controls
         recyclerView.layoutManager = LinearLayoutManager(this)

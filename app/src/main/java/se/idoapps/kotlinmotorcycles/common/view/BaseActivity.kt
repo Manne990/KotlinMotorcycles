@@ -4,10 +4,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity: AppCompatActivity() {
-    private var backButtonEnabled: Boolean = false
+    private var _backButtonEnabled: Boolean = false
 
     override fun onBackPressed() {
-        if (backButtonEnabled) {
+        if (_backButtonEnabled) {
             super.onBackPressed()
         }
     }
@@ -21,10 +21,15 @@ open class BaseActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun enableBackButton(enable: Boolean) {
-        backButtonEnabled = enable
+    fun configureBackButton(backButtonEnabled: Boolean, upButtonEnabled: Boolean) {
+        _backButtonEnabled = backButtonEnabled
+        var localUpButtonEnabled = upButtonEnabled
 
-        actionBar?.setDisplayHomeAsUpEnabled(enable)
-        supportActionBar?.setDisplayHomeAsUpEnabled(enable)
+        if(!_backButtonEnabled) {
+            localUpButtonEnabled = false
+        }
+
+        actionBar?.setDisplayHomeAsUpEnabled(localUpButtonEnabled)
+        supportActionBar?.setDisplayHomeAsUpEnabled(localUpButtonEnabled)
     }
 }
