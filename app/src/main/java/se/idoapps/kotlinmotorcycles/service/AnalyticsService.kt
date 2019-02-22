@@ -41,6 +41,6 @@ class AnalyticsService : AnalyticsServiceInterface {
         }
 
         Analytics.trackEvent(eventName + appCenterParams.toString())
-        _firebase!!.logEvent(eventName, firebaseParams)
+        _firebase?.logEvent(eventName, firebaseParams)
     }
 }
