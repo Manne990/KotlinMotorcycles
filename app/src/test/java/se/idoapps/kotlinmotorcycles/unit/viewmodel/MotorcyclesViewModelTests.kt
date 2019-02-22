@@ -8,12 +8,14 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mockito
 import se.idoapps.kotlinmotorcycles.model.*
+import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import se.idoapps.kotlinmotorcycles.viewmodel.*
 
 class MotorcyclesViewModelTests {
     private lateinit var viewModel: MotorcyclesViewModelInterface
     private lateinit var webservice: WebServiceInterface
+    private lateinit var analytics: AnalyticsServiceInterface
     private lateinit var motorcyclesResult: MotorcyclesContainer
 
     @get:Rule
@@ -30,9 +32,11 @@ class MotorcyclesViewModelTests {
         )
 
         webservice = Mockito.mock(WebServiceInterface::class.java)
+        analytics = Mockito.mock(AnalyticsServiceInterface::class.java)
+
         Mockito.`when`(webservice.getMotorcycles()).thenReturn(motorcyclesResult)
 
-        viewModel = MotorcyclesViewModel(webservice)
+        viewModel = MotorcyclesViewModel(webservice, analytics)
     }
 
     @Test

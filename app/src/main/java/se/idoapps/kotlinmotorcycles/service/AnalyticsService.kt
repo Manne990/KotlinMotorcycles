@@ -18,6 +18,7 @@ class AnalyticsService : AnalyticsServiceInterface {
         const val LIST_MOTORCYCLES = "LIST_MOTORCYCLES"
         const val EDIT_MOTORCYCLE = "EDIT_MOTORCYCLE"
         const val NEW_MOTORCYCLE = "NEW_MOTORCYCLE"
+        const val DELETE_MOTORCYCLE = "DELETE_MOTORCYCLE"
     }
 
     override fun init() {
