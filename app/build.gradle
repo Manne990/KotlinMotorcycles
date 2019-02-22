@@ -61,6 +61,7 @@ dependencies {
 
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    implementation 'com.google.firebase:firebase-core:16.0.7'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
@@ -73,3 +74,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.1' // Optional
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0' // Optional
 }
+
+apply plugin: 'com.google.gms.google-services'

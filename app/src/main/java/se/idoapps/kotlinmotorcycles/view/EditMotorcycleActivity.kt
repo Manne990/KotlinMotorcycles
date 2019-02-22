@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.edit_motorcycle_activity.*
 import kotlinx.android.synthetic.main.toolbar.*

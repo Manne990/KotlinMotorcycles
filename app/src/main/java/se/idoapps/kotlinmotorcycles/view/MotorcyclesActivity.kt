@@ -7,7 +7,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.microsoft.appcenter.analytics.Analytics
 import kotlinx.android.synthetic.main.motorcycles_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.GlobalScope
@@ -17,6 +16,7 @@ import se.idoapps.kotlinmotorcycles.common.*
 import se.idoapps.kotlinmotorcycles.common.view.BaseActivity
 import se.idoapps.kotlinmotorcycles.common.view.SwipeToDeleteHandler
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
+import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import se.idoapps.kotlinmotorcycles.viewmodel.MotorcyclesViewModelInterface
 import javax.inject.Inject
 
@@ -24,6 +24,9 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     // Dagger
     @Inject
     lateinit var viewModel: MotorcyclesViewModelInterface
+
+    @Inject
+    lateinit var analytics: AnalyticsServiceInterface
 
     // Private Members
     private var _adapter: MotorcyclesAdapter? = null
@@ -74,7 +77,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        Analytics.trackEvent("Listing all motorcycles")
+        analytics.trackEvent("Listing all motorcycles")
     }
 
     override fun onClick(view: View?) {

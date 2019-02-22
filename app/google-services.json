@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "419760403771",
+    "firebase_url": "https://motorcycles-9bb5a.firebaseio.com",
+    "project_id": "motorcycles-9bb5a",
+    "storage_bucket": "motorcycles-9bb5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419760403771:android:d559f71bbc2c32b0",
+        "android_client_info": {
+          "package_name": "se.idoapps.kotlinmotorcycles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419760403771-7acfm8a8326aj9u73q37spufh401rh2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDyWbC0jGMLyMwuvqB9dTWWlIFHpRXcIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
