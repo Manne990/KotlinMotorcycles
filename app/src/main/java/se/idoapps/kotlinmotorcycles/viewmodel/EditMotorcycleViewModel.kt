@@ -13,10 +13,17 @@ class EditMotorcycleViewModel @Inject constructor(private val webservice: WebSer
 
     // Public Functions
     override fun initWithPayload(payload: Motorcycle?) {
+        // Init
         motorcycle = payload ?: Motorcycle.empty()
 
-        analytics.trackEvent(AnalyticsService.Events.EDIT_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
+        // Track Event
+        if (motorcycle.objectId.isBlank()) {
+            analytics.trackEvent(AnalyticsService.Events.NEW_MOTORCYCLE)
+        } else {
+            analytics.trackEvent(AnalyticsService.Events.EDIT_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
+        }
 
+        // Finish up
         data.postValue(motorcycle)
     }
 

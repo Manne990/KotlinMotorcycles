@@ -17,6 +17,7 @@ class AnalyticsService : AnalyticsServiceInterface {
     object Events {
         const val LIST_MOTORCYCLES = "LIST_MOTORCYCLES"
         const val EDIT_MOTORCYCLE = "EDIT_MOTORCYCLE"
+        const val NEW_MOTORCYCLE = "NEW_MOTORCYCLE"
     }
 
     override fun init() {
