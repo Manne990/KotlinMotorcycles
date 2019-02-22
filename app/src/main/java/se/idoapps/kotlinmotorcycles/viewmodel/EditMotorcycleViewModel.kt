@@ -2,6 +2,7 @@ package se.idoapps.kotlinmotorcycles.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.microsoft.appcenter.analytics.Analytics
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import javax.inject.Inject
@@ -14,6 +15,8 @@ class EditMotorcycleViewModel @Inject constructor(private val webservice: WebSer
     // Public Functions
     override fun initWithPayload(payload: Motorcycle?) {
         motorcycle = payload ?: Motorcycle.empty()
+
+        Analytics.trackEvent("View motorcycle: ${motorcycle.brand} ${motorcycle.model} (${motorcycle.year})")
 
         data.postValue(motorcycle)
     }

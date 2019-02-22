@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.microsoft.appcenter.analytics.Analytics
 import kotlinx.android.synthetic.main.motorcycles_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.GlobalScope
@@ -68,6 +69,12 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
 
         // Load the motorcycles
         loadMotorcycles()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Analytics.trackEvent("Listing all motorcycles")
     }
 
     override fun onClick(view: View?) {
