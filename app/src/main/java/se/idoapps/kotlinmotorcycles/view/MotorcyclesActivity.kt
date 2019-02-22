@@ -66,8 +66,15 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
             startActivityForResult<EditMotorcycleActivity>(CALLBACK_REQUEST_CODE, true)
         }
 
+        swipeContainer.setColorSchemeResources(R.color.colorAccent)
+
+        swipeContainer.setOnRefreshListener {
+            loadMotorcycles()
+        }
+
         // Observe Motorcycles Collection
         viewModel.motorcycles.observe(this, Observer {
+            swipeContainer.isRefreshing = false
             _adapter?.setData(it)
         })
 
