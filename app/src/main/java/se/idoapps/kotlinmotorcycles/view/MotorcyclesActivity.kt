@@ -31,9 +31,6 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val tmp = R.id.recyclerView
-
-
         // Init Dagger
         this.app.appComponent.inject(this)
 
