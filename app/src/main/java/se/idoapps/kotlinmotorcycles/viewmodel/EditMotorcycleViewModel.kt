@@ -15,7 +15,7 @@ class EditMotorcycleViewModel @Inject constructor(private val webservice: WebSer
     override fun initWithPayload(payload: Motorcycle?) {
         motorcycle = payload ?: Motorcycle.empty()
 
-        analytics.trackEvent("View motorcycle: ${motorcycle.brand} ${motorcycle.model} (${motorcycle.year})")
+        analytics.trackEvent(AnalyticsService.Events.EDIT_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
 
         data.postValue(motorcycle)
     }

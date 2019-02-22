@@ -16,6 +16,7 @@ import se.idoapps.kotlinmotorcycles.common.*
 import se.idoapps.kotlinmotorcycles.common.view.BaseActivity
 import se.idoapps.kotlinmotorcycles.common.view.SwipeToDeleteHandler
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
+import se.idoapps.kotlinmotorcycles.service.AnalyticsService
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import se.idoapps.kotlinmotorcycles.viewmodel.MotorcyclesViewModelInterface
 import javax.inject.Inject
@@ -77,7 +78,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        analytics.trackEvent("Listing all motorcycles")
+        analytics.trackEvent(AnalyticsService.Events.LIST_MOTORCYCLES)
     }
 
     override fun onClick(view: View?) {
