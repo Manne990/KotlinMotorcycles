@@ -1,6 +1,8 @@
 package se.idoapps.kotlinmotorcycles.unit.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockitokotlin2.*
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -31,22 +33,25 @@ class MotorcyclesViewModelTests {
             , true
         )
 
-        webservice = Mockito.mock(WebServiceInterface::class.java)
-        analytics = Mockito.mock(AnalyticsServiceInterface::class.java)
+        webservice = mock {
+            onBlocking { getMotorcycles() }.doReturn(motorcyclesResult)
+        }
 
-        Mockito.`when`(webservice.getMotorcycles()).thenReturn(motorcyclesResult)
+        analytics = mock()
 
         viewModel = MotorcyclesViewModel(webservice, analytics)
     }
 
     @Test
     fun `When fetching motorcycles then two motorcycles shall be returned`() {
-        // ARRANGE
+        runBlocking {
+            // ARRANGE
 
-        // ACT
-        viewModel.loadMotorcycles()
+            // ACT
+            viewModel.loadMotorcycles()
 
-        // ASSERT
-        assertEquals(2, viewModel.motorcycles.value?.size)
+            // ASSERT
+            assertEquals(2, viewModel.motorcycles.value?.size)
+        }
     }
 }
