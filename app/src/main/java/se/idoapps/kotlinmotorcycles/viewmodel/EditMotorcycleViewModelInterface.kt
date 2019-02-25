@@ -8,5 +8,5 @@ interface EditMotorcycleViewModelInterface {
     val data: MutableLiveData<Motorcycle>
 
     fun initWithPayload(payload: Motorcycle?)
-    fun saveMotorcycle()
+    suspend fun saveMotorcycle()
 }

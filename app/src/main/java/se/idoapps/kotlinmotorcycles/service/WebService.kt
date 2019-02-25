@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 
 class  WebService : WebServiceInterface {
     // Public Functions
-    override fun getMotorcycles(): MotorcyclesContainer {
+    override suspend fun getMotorcycles(): MotorcyclesContainer {
         try {
             val endPoint = allMotorcyclesUrl()
 
@@ -40,7 +40,7 @@ class  WebService : WebServiceInterface {
         }
     }
 
-    override fun getMotorcycle(id: String): MotorcycleContainer {
+    override suspend fun getMotorcycle(id: String): MotorcycleContainer {
         try {
             val endPoint = oneMotorcycleUrl(id)
 
@@ -68,7 +68,7 @@ class  WebService : WebServiceInterface {
         }
     }
 
-    override fun saveMotorcycle(motorcycle: Motorcycle): MotorcycleContainer {
+    override suspend fun saveMotorcycle(motorcycle: Motorcycle): MotorcycleContainer {
         if (motorcycle.objectId.isEmpty()) {
             return createNewMotorcycle(motorcycle)
         }
@@ -76,7 +76,7 @@ class  WebService : WebServiceInterface {
         return updateMotorcycle(motorcycle)
     }
 
-    override fun deleteMotorcycle(id: String): EmptyContainer {
+    override suspend fun deleteMotorcycle(id: String): EmptyContainer {
         try {
             val endPoint = oneMotorcycleUrl(id)
 

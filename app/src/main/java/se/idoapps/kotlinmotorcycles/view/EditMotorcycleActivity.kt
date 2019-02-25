@@ -84,9 +84,7 @@ class EditMotorcycleActivity : BaseActivity() {
 
     private fun saveMotorcycleAndFinish() {
         GlobalScope.launch {
-            val result = GlobalScope.async { viewModel.saveMotorcycle() }
-
-            result.await()
+            viewModel.saveMotorcycle()
 
             withContext(Dispatchers.Main) {
                 setResult(Activity.RESULT_OK)

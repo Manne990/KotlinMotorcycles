@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.motorcycles_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import se.idoapps.kotlinmotorcycles.R
 import se.idoapps.kotlinmotorcycles.common.*

@@ -6,6 +6,6 @@ import se.idoapps.kotlinmotorcycles.model.Motorcycle
 interface MotorcyclesViewModelInterface {
     val motorcycles: MutableLiveData<List<Motorcycle>>
 
-    fun loadMotorcycles()
-    fun deleteMotorcycle(motorcycle: Motorcycle)
+    suspend fun loadMotorcycles()
+    suspend fun deleteMotorcycle(motorcycle: Motorcycle)
 }

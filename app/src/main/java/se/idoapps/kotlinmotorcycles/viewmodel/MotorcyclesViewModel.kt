@@ -13,14 +13,14 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
     override val motorcycles: MutableLiveData<List<Motorcycle>> = MutableLiveData()
 
     // Public Functions
-    override fun loadMotorcycles() {
+    override suspend fun loadMotorcycles() {
         val response =  webservice.getMotorcycles()
         if (response.success) {
             motorcycles.postValue(response.data.sortedWith(compareBy({it.brand}, {it.model}, {it.year})))
         }
     }
 
-    override fun deleteMotorcycle(motorcycle: Motorcycle) {
+    override suspend fun deleteMotorcycle(motorcycle: Motorcycle) {
         val response = webservice.deleteMotorcycle(motorcycle.objectId)
         if (response.success) {
             analytics.trackEvent(AnalyticsService.Events.DELETE_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))

@@ -27,7 +27,7 @@ class EditMotorcycleViewModel @Inject constructor(private val webservice: WebSer
         data.postValue(motorcycle)
     }
 
-    override fun saveMotorcycle() {
+    override suspend fun saveMotorcycle() {
         val result = webservice.saveMotorcycle(motorcycle)
         if (!result.success) {
             println("EditMotorcycleViewModel.saveMotorcycle FAILED!")
