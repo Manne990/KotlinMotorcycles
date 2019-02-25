@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
 import android.util.Patterns
+import android.view.View
 import android.widget.EditText
+import androidx.annotation.IdRes
 import androidx.core.widget.doAfterTextChanged
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -57,6 +59,15 @@ val Activity.app: MotorcyclesApp
     get() = application as MotorcyclesApp
 
 // Activity and Intent
+fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> { // Usage: private val planningText by bindView<TextView>(R.id.planning_text)
+    return lazyUnsychronized {
+        findViewById<ViewT>(idRes)
+    }
+}
+
+fun <T> lazyUnsychronized(initializer: () -> T): Lazy<T> =
+    lazy(LazyThreadSafetyMode.NONE, initializer)
+
 inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, transitions: Boolean = false, vararg params: Pair<String, Any?>) {
     if (transitions) {
         this.startActivityForResult(
