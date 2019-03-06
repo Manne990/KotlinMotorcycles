@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.service.AnalyticsService
+import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceAbstractions
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
     override suspend fun deleteMotorcycle(motorcycle: Motorcycle) {
         val response = webservice.deleteMotorcycle(motorcycle.objectId)
         if (response.success) {
-            analytics.trackEvent(AnalyticsService.Events.DELETE_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
+            analytics.trackEvent(AnalyticsServiceAbstractions.Events.DELETE_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
             loadMotorcycles()
         }
     }

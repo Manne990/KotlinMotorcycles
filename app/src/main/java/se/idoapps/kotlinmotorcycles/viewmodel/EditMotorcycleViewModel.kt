@@ -18,9 +18,9 @@ class EditMotorcycleViewModel @Inject constructor(private val webservice: WebSer
 
         // Track Event
         if (motorcycle.objectId.isBlank()) {
-            analytics.trackEvent(AnalyticsService.Events.NEW_MOTORCYCLE)
+            analytics.trackEvent(AnalyticsServiceAbstractions.Events.NEW_MOTORCYCLE)
         } else {
-            analytics.trackEvent(AnalyticsService.Events.EDIT_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
+            analytics.trackEvent(AnalyticsServiceAbstractions.Events.EDIT_MOTORCYCLE, mapOf("Brand" to motorcycle.brand, "Model" to motorcycle.model, "Year" to motorcycle.year.toString()))
         }
 
         // Finish up

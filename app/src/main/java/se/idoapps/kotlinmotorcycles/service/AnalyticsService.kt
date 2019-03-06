@@ -14,13 +14,6 @@ class AnalyticsService : AnalyticsServiceInterface {
         private const val APP_CENTER_KEY = "40d6aca1-80ea-48a3-bfe1-cacf5666296f"
     }
 
-    object Events {
-        const val LIST_MOTORCYCLES = "LIST_MOTORCYCLES"
-        const val EDIT_MOTORCYCLE = "EDIT_MOTORCYCLE"
-        const val NEW_MOTORCYCLE = "NEW_MOTORCYCLE"
-        const val DELETE_MOTORCYCLE = "DELETE_MOTORCYCLE"
-    }
-
     override fun init() {
         println("AnalyticsService: Starting...")
 
@@ -28,7 +21,9 @@ class AnalyticsService : AnalyticsServiceInterface {
         _firebase = FirebaseAnalytics.getInstance(MotorcyclesApp.application)
     }
 
-    override fun trackEvent(eventName: String, params: Map<String, String>?) {
+    override fun trackEvent(event: AnalyticsServiceAbstractions.Events, params: Map<String, String>?) {
+        val eventName = event.toString()
+
         println("AnalyticsService: Track event '$eventName'")
 
         val appCenterParams = StringBuilder()
