@@ -1,11 +1,11 @@
 package se.idoapps.kotlinmotorcycles.viewmodel
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 
 interface MotorcyclesViewModelInterface {
-    val motorcycles: MutableLiveData<List<Motorcycle>>
+    val motorcycles: LiveData<List<Motorcycle>>
 
-    suspend fun loadMotorcycles()
-    suspend fun deleteMotorcycle(motorcycle: Motorcycle)
+    suspend fun loadMotorcyclesAsync()
+    suspend fun deleteMotorcycleAsync(motorcycle: Motorcycle)
 }

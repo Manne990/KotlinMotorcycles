@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.mockito.Mockito
 import se.idoapps.kotlinmotorcycles.model.*
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
@@ -48,7 +47,7 @@ class MotorcyclesViewModelTests {
             // ARRANGE
 
             // ACT
-            viewModel.loadMotorcycles()
+            viewModel.loadMotorcyclesAsync()
 
             // ASSERT
             assertEquals(2, viewModel.motorcycles.value?.size)

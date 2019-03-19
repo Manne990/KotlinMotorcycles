@@ -111,11 +111,11 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
 
     // Private Functions
     private fun loadMotorcycles() {
-        launch { viewModel.loadMotorcycles() }
+        launch { viewModel.loadMotorcyclesAsync() }
     }
 
     private fun deleteMotorcycle(motorcycle: Motorcycle) {
-        launch { viewModel.deleteMotorcycle(motorcycle) }
+        launch { viewModel.deleteMotorcycleAsync(motorcycle) }
     }
 
     // Companion Objects

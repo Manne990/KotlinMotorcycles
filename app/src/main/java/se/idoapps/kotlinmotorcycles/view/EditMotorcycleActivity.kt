@@ -46,7 +46,7 @@ class EditMotorcycleActivity : BaseActivity() {
 
         // Load the motorcycles
         val payload = intent.getSerializableExtra(PAYLOAD) as Motorcycle?
-        initWithPayload(payload)
+        viewModel.initWithPayload(payload)
     }
 
     // Overrides
@@ -79,13 +79,9 @@ class EditMotorcycleActivity : BaseActivity() {
     }
 
     // Private Functions
-    private fun initWithPayload(payload: Motorcycle?) {
-        launch { viewModel.initWithPayload(payload) }
-    }
-
     private fun saveMotorcycleAndFinish() {
         launch {
-            viewModel.saveMotorcycle()
+            viewModel.saveMotorcycleAsync()
 
             withContext(Dispatchers.Main) {
                 setResult(Activity.RESULT_OK)

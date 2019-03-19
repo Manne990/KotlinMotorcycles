@@ -32,7 +32,7 @@ open class BaseActivity: AppCompatActivity(), CoroutineScope {
 
     // Overrides
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Default + job
+        get() = Dispatchers.IO + job
 
     override fun onBackPressed() {
         if (_backButtonEnabled) {
