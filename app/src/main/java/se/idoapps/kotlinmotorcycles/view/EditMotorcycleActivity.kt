@@ -20,7 +20,7 @@ class EditMotorcycleActivity : BaseActivity() {
     @Inject
     lateinit var viewModel: EditMotorcycleViewModelInterface
 
-    // Overrides
+    // Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,6 +49,7 @@ class EditMotorcycleActivity : BaseActivity() {
         initWithPayload(payload)
     }
 
+    // Overrides
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.edit_motorcycle_activity_menu, menu)
         return true
@@ -79,11 +80,11 @@ class EditMotorcycleActivity : BaseActivity() {
 
     // Private Functions
     private fun initWithPayload(payload: Motorcycle?) {
-        GlobalScope.launch { viewModel.initWithPayload(payload) }
+        launch { viewModel.initWithPayload(payload) }
     }
 
     private fun saveMotorcycleAndFinish() {
-        GlobalScope.launch {
+        launch {
             viewModel.saveMotorcycle()
 
             withContext(Dispatchers.Main) {

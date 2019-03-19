@@ -9,16 +9,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.motorcycles_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import se.idoapps.kotlinmotorcycles.R
 import se.idoapps.kotlinmotorcycles.common.*
 import se.idoapps.kotlinmotorcycles.common.view.BaseActivity
 import se.idoapps.kotlinmotorcycles.common.view.SwipeToDeleteHandler
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
-import se.idoapps.kotlinmotorcycles.service.AnalyticsService
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceAbstractions
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceInterface
 import se.idoapps.kotlinmotorcycles.viewmodel.MotorcyclesViewModelInterface
@@ -35,7 +31,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
     // Private Members
     private var _adapter: MotorcyclesAdapter? = null
 
-    // Overrides
+    // Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -91,6 +87,7 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         analytics.trackEvent(AnalyticsServiceAbstractions.Events.LIST_MOTORCYCLES)
     }
 
+    // Overrides
     override fun onClick(view: View?) {
         val holder = view?.tag as MotorcyclesAdapter.MotorcycleViewHolder
         val item = _adapter?.getItem(holder.adapterPosition) ?: return
@@ -114,11 +111,11 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
 
     // Private Functions
     private fun loadMotorcycles() {
-        GlobalScope.launch { viewModel.loadMotorcycles() }
+        launch { viewModel.loadMotorcycles() }
     }
 
     private fun deleteMotorcycle(motorcycle: Motorcycle) {
-        GlobalScope.launch { viewModel.deleteMotorcycle(motorcycle) }
+        launch { viewModel.deleteMotorcycle(motorcycle) }
     }
 
     // Companion Objects
