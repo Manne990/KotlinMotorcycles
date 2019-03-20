@@ -58,15 +58,17 @@ val Activity.app: MotorcyclesApp
     get() = application as MotorcyclesApp
 
 // Activity and Intent
-fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> { // Usage: private val planningText by bindView<TextView>(R.id.planning_text)
-    return lazyUnsychronized {
-        findViewById<ViewT>(idRes)
-    }
-}
+//fun <ViewT : View> Activity.bindView(@IdRes idRes: Int): Lazy<ViewT> { // Usage: private val planningText by bindView<TextView>(R.id.planning_text)
+//    return lazyUnsychronized {
+//        findViewById<ViewT>(idRes)
+//    }
+//}
+//
+//fun <T> lazyUnsychronized(initializer: () -> T): Lazy<T> =
+//    lazy(LazyThreadSafetyMode.NONE, initializer)
 
-fun <T> lazyUnsychronized(initializer: () -> T): Lazy<T> =
-    lazy(LazyThreadSafetyMode.NONE, initializer)
 
+//REMARK: Use @Parcelize models instead when that is out of experimental?
 inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, transitions: Boolean = false, vararg params: Pair<String, Any?>) {
     if (transitions) {
         this.startActivityForResult(
