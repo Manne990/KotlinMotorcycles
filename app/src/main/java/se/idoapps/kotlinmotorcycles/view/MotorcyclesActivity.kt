@@ -66,7 +66,6 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
         }
 
         swipeContainer.setColorSchemeResources(R.color.colorAccent)
-
         swipeContainer.setOnRefreshListener {
             loadMotorcycles()
         }
@@ -111,7 +110,17 @@ class MotorcyclesActivity : BaseActivity(), View.OnClickListener {
 
     // Private Functions
     private fun loadMotorcycles() {
-        launch { viewModel.loadMotorcyclesAsync() }
+        launch {
+            withContext(Dispatchers.Main) {
+                swipeContainer.isRefreshing = true
+            }
+
+            viewModel.loadMotorcyclesAsync()
+
+            withContext(Dispatchers.Main) {
+                swipeContainer.isRefreshing = false
+            }
+        }
     }
 
     private fun deleteMotorcycle(motorcycle: Motorcycle) {

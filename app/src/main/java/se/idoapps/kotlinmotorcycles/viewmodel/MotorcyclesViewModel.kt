@@ -3,6 +3,7 @@ package se.idoapps.kotlinmotorcycles.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.delay
 import se.idoapps.kotlinmotorcycles.service.WebServiceInterface
 import se.idoapps.kotlinmotorcycles.model.Motorcycle
 import se.idoapps.kotlinmotorcycles.service.AnalyticsServiceAbstractions
@@ -18,9 +19,10 @@ class MotorcyclesViewModel @Inject constructor(private val webservice: WebServic
 
     // Public Functions
     override suspend fun loadMotorcyclesAsync() {
-        val response =  webservice.getMotorcycles()
+        val response = webservice.getMotorcycles()
         if (response.success) {
-            _motorcycles.postValue(response.data.sortedWith(compareBy({it.brand}, {it.model}, {it.year})))
+            _motorcycles.postValue(response.data
+                .sortedWith(compareBy({it.brand}, {it.model}, {it.year})))
         }
     }
 
