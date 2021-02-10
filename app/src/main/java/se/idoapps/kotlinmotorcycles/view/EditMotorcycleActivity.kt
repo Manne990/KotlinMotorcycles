@@ -55,7 +55,7 @@ class EditMotorcycleActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item?.itemId == R.id.menuDone) {
             val isValid =
                 brandEditText.validate({ s -> s.length >= 2 }, brandEditText.hint.toString()) &&

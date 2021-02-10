@@ -2,6 +2,6 @@ package se.idoapps.kotlinmotorcycles.application
 
 class Configuration {
     companion object {
-        const val BASE_URL = "https://api.backendless.com/8497684E-2B7B-1E53-FF7C-3C2B0CE99700/282CDAE9-FE22-748C-FF61-DC3168DB0D00/"
+        const val BASE_URL = "https://eu-api.backendless.com/DE5E16A6-4F24-099D-FFCE-7A9F8E48FC00/18A53461-35CB-475C-BAC1-3B9A6A30DCC3/"
     }
 }
